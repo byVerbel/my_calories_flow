@@ -1,0 +1,11 @@
+<%= form_with(model: @calorie, local: true) do |f| %>
+  <%= render "shared/error_messages", resource: @calorie %>
+  <div class="field form-group">
+    <%= f.number_field :ammount, class:"form-control mb-2", placeholder:"Number" %>
+  </div>
+  <%= f.number_field :user_id, id: :calorie_user_id, value: current_user.id, type: :hidden %>
+  <div class="field form-group">
+    <%= f.select(:register_type, ['Gained', 'Burned'], {}, { :class => 'form-select' }) %>
+  </div>
+  <%= f.submit yield(:button_text), class: "btn btn-lg btn-primary my-4" %>
+<% end %>

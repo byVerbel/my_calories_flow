@@ -1,0 +1,15 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation">
+    <div class="text-start alert alert-danger alert-dismissible fade show mt-4" role="alert">
+      <h4>The form contains <%= pluralize(resource.errors.count, "error") %>.</h4>
+      <ul>
+        <% resource.errors.full_messages.each do |message| %>
+          <li>
+            <h6  class="fw-normal"><%= message %></h6>
+          </li>
+        <% end %>
+      </ul>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+<% end %>

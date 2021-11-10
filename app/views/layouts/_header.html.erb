@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container">
+    <div>
+      <% if user_signed_in? %>
+        <%= link_to "Proyecto dos", dashboard_index_path, id: "logo" %>
+      <% else %>
+        <%= link_to "Proyecto dos", root_path, id: "logo" %>
+      <% end %>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <% if user_signed_in? %>
+          <li class="nav-item"><%= link_to "Calories", calories_path, class: "nav-link active" %></li>
+          <li class="nav-item"><%= link_to "New calorie", new_calory_path, class: "nav-link active" %></li>
+          <li class="nav-item"><%= link_to "Profile", edit_user_registration_path, class: "nav-link active" %></li>
+          <li class="nav-item"><%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-link" %></li>
+        <% else %>
+          <li class="nav-item"><%= link_to "Sign Up", new_user_registration_path, class: "nav-link active" %></li>
+          <li class="nav-item"><%= link_to "Log In", new_user_session_path, class: "nav-link active" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

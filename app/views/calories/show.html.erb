@@ -1,0 +1,29 @@
+<% provide(:title, "Calorie register") %>
+<div class="p-5 mb-4 bg-light rounded-3">
+  <% user = User.find(@calorie.user_id) %>
+  <div class="d-flex flex-row mb-5">
+    <div class="me-3">
+      <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+      </svg>
+    </div>
+    <div>
+      <h2><%= user.firstname + ' ' + user.lastname %></h2>
+      <h6 class="fw-normal">@<%= user.email.match(/(.+)@.+/)[1] %></h6>
+    </div>
+  </div>
+  <h4 class="fw-normal mb-2">
+    <%= @calorie.ammount %>
+  </h4>
+  <h5 class="fw-normal mb-3">
+    <%= @calorie.register_type %>
+  </h5>
+  <h6 class="fw-normal fst-italic mb-5">
+    <%= @calorie.updated_at.strftime('%H:%M - %d.%m.%Y') %>
+  </h6>
+  <% if current_user.id == @calorie.user_id %>
+    <%= link_to 'Edit', edit_calory_path(@calorie), class:"link--normal" %> |
+  <% end %>
+  <%= link_to 'Back', calories_path, class:"link--normal" %>
+</div>
