@@ -1,9 +1,6 @@
-<% provide(:title, "Confirmation instructions") %>
-<div class="text-center p-5 mb-4 bg-light rounded-3">
-  <h3><b>Hello <%= @email %>!</b></h3>
-  <% if @resource.try(:unconfirmed_email?) %>
-    <h5 class="fw-normal mb-4">We're contacting you to notify you that your email is being changed to <%= @resource.unconfirmed_email %>.</h5>
-  <% else %>
-    <h5 class="fw-normal mb-4">We're contacting you to notify you that your email has been changed to <%= @resource.email %>.</h5>
-  <% end %>
-</div>
+<p> Hello <%= @email %>!</p>
+<% if @resource.try(:unconfirmed_email?) %>
+  <p>We're contacting you to notify you that your email is being changed to <%= @resource.unconfirmed_email %>.</p>
+<% else %>
+  <p>We're contacting you to notify you that your email has been changed to <%= @resource.email %>.</p>
+<% end %>
