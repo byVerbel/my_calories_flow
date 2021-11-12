@@ -4,6 +4,8 @@
     <div>
       <h1>Calories logs</h1>
       <ul class="calories">
+        <%= paginate @calories, theme: 'twitter-bootstrap-4',
+                                window: 4 %>
         <%= render @calories %>
       </ul>
     </div>

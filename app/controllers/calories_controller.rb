@@ -3,7 +3,8 @@ class CaloriesController < ApplicationController
   before_action :correct_user, only: %i[edit update destroy]
 
   def index
-    @calories = Calorie.all
+    @calories = Calorie.order('updated_at DESC')
+    @calories = Kaminari.paginate_array(@calories).page(params[:page]).per(15)
   end
 
   def show
