@@ -1,2 +1,11 @@
-<h1>Calories#index</h1>
-<p>Find me in app/views/calories/index.html.erb</p>
+<% provide(:title, 'Calories logs') %>
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="d-flex flex-row">
+    <div>
+      <h1>Calories logs</h1>
+      <ul class="calories">
+        <%= render @calories %>
+      </ul>
+    </div>
+  </div>
+</div>

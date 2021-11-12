@@ -54,6 +54,6 @@ class CaloriesController < ApplicationController
   private
 
   def calorie_params
-    params.require(:calorie).permit(:ammount, :register_type)
+    params.require(:calorie).permit(:ammount, :register_type, :register_comment)
   end
 end

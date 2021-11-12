@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_09_175148) do
+ActiveRecord::Schema.define(version: 2021_11_12_050927) do
 
   create_table "calories", force: :cascade do |t|
     t.integer "ammount", null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_11_09_175148) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
+    t.string "register_comment", default: ""
     t.index ["user_id"], name: "index_calories_on_user_id"
   end
 
@@ -27,8 +28,8 @@ ActiveRecord::Schema.define(version: 2021_11_09_175148) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "firstname"
-    t.string "lastname"
+    t.string "firstname", default: ""
+    t.string "lastname", default: ""
     t.date "birthday"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

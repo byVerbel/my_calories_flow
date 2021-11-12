@@ -5,7 +5,8 @@
   </div>
   <%= f.number_field :user_id, id: :calorie_user_id, value: current_user.id, type: :hidden %>
   <div class="field form-group">
-    <%= f.select(:register_type, ['Gained', 'Burned'], {}, { :class => 'form-select' }) %>
+    <%= f.select(:register_type, [['Select register type: ', ''], 'Gained', 'Burned'], {}, { :class => 'form-select mb-2' }) %>
   </div>
+  <%= f.text_area :register_comment, class:"form-control mb-2", placeholder:"Comment", aria:"With textarea" %>
   <%= f.submit yield(:button_text), class: "btn btn-lg btn-primary my-4" %>
 <% end %>

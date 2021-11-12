@@ -1,7 +1,32 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# Create a main sample user.
+User.create!(firstname: 'Example User',
+             email: 'example@railstutorial.org',
+             password: 'foobar',
+             password_confirmation: 'foobar')
+
+# Generate a bunch of additional users.
+49.times do |n|
+  firstname = Faker::Name.first_name
+  lastname = Faker::Name.last_name
+  email = "#{firstname}-#{n + 1}@railstutorial.org"
+  password = 'password'
+  User.create!(firstname: firstname,
+               lastname: lastname,
+               email: email,
+               password: password,
+               password_confirmation: password)
+end
+
+# Generate calories for a subset of users.
+users = User.order(:created_at).take(50)
+days_ago = 60
+60.times do
+  current_date = Date.today - days_ago
+  users.each do |user|
+    comment = Faker::Lorem.sentence(word_count: 5)
+    cal = Faker::Number.between(from: 1000, to: 5000)
+    reg_type = %w[Gained Burned].sample
+    user.calorie.create!(ammount: cal, register_type: reg_type, register_comment: comment, created_at: current_date)
+  end
+  days_ago -= 1
+end

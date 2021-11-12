@@ -1,0 +1,16 @@
+<li>
+  <div class="d-flex flex-row">
+    <div class="mx-4">
+      <%= link_to calorie.ammount, calorie %>
+    </div>
+    <div class="mx-4">
+      <i>
+        <%= calorie.created_at.strftime('%H:%M - %d.%m.%Y') %>
+      </i>
+    </div>
+    <div class="mx-4">
+      <% user = User.find(calorie.user_id) %>
+      by: @<%= user.email.match(/(.+)@.+/)[1] %>
+    </div>
+  </div>
+</li>
