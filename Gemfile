@@ -3,8 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'bootsnap', '1.7.2', require: false
 gem 'bootstrap4-kaminari-views', '~> 1.0', '>= 1.0.1'
+gem 'chartkick', '~> 4.1', '>= 4.1.2'
 gem 'devise', '~> 4.8.0'
 gem 'faker', '2.19.0'
+gem 'groupdate', '~> 5.2', '>= 5.2.2'
 gem 'jbuilder', '2.10.0'
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
 gem 'puma', '5.3.1'

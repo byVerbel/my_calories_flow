@@ -1,10 +1,14 @@
 class CaloriesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :correct_user, only: %i[edit update destroy]
+  before_action :correct_user, only: %i[show edit update destroy]
 
   def index
-    @calories = Calorie.order('updated_at DESC')
+    @calories = current_user.calorie.order('created_at DESC').limit(30)
     @calories = Kaminari.paginate_array(@calories).page(params[:page]).per(15)
+  end
+
+  def chart
+    @calories = current_user.calorie.group_by_day(:created_at).sum(:ammount)
   end
 
   def show
@@ -49,7 +53,7 @@ class CaloriesController < ApplicationController
 
   def correct_user
     @calorie = current_user.calorie.find_by(id: params[:id])
-    redirect_to calory_path, notice: 'Not authorized to edit this calorie.' if @calorie.nil?
+    redirect_to calories_path, notice: 'Not authorized to see this log.' if @calorie.nil?
   end
 
   private

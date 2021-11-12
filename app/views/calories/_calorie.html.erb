@@ -1,16 +1,20 @@
 <li>
-  <div class="d-flex flex-row">
-    <div class="mx-4">
-      <%= link_to calorie.ammount, calorie %>
+  <div class="d-flex justify-content-evenly">
+    <% if calorie.register_type == 'Gained' %>
+      <%= link_to calorie.ammount, calorie, class: 'text-danger' %>
+    <% else %>
+      <%= link_to calorie.ammount, calorie, class: 'text-success' %>
+    <% end %>
+    <div>
     </div>
-    <div class="mx-4">
+    <div>
+      <% user = User.find(calorie.user_id) %>
+      by: @<%= user.email.match(/(.+)@.+/)[1] %>
+    </div>
+    <div>
       <i>
         <%= calorie.created_at.strftime('%H:%M - %d.%m.%Y') %>
       </i>
-    </div>
-    <div class="mx-4">
-      <% user = User.find(calorie.user_id) %>
-      by: @<%= user.email.match(/(.+)@.+/)[1] %>
     </div>
   </div>
 </li>

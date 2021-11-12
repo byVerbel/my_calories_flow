@@ -1,13 +1,13 @@
 <% provide(:title, 'Calories logs') %>
 <div class="p-5 mb-4 bg-light rounded-3">
-  <div class="d-flex flex-row">
-    <div>
-      <h1>Calories logs</h1>
-      <ul class="calories">
-        <%= paginate @calories, theme: 'twitter-bootstrap-4',
+  <div>
+    <h1>Calories logs</h1>
+    <ul class="calories">
+      <%= paginate @calories, theme: 'twitter-bootstrap-4',
                                 window: 4 %>
-        <%= render @calories %>
-      </ul>
-    </div>
+      <%= render @calories %>
+      <%= paginate @calories, theme: 'twitter-bootstrap-4',
+                                window: 4 %>
+    </ul>
   </div>
 </div>
