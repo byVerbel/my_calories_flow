@@ -24,7 +24,7 @@ days_ago = 60
   current_date = Date.today - days_ago
   users.each do |user|
     comment = Faker::Lorem.sentence(word_count: 5)
-    cal = Faker::Number.between(from: 1000, to: 5000)
+    cal = Faker::Number.between(from: 1, to: 300)
     reg_type = %w[Gained Burned].sample
     user.calorie.create!(ammount: cal, register_type: reg_type, register_comment: comment, created_at: current_date)
   end

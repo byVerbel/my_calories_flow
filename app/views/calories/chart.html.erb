@@ -3,6 +3,9 @@
   <div>
     <h1>Logs chart</h1>
     <br>
-    <%= line_chart @calories %>
+    <%= line_chart [
+      {name: "Burned", data: @burned},
+      {name: "Gained", data: @gained}
+    ] %>
   </div>
 </div>

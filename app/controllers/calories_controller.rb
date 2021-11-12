@@ -8,7 +8,18 @@ class CaloriesController < ApplicationController
   end
 
   def chart
-    @calories = current_user.calorie.group_by_day(:created_at).sum(:ammount)
+    @calories = current_user.calorie.group(:created_at).group(:register_type).sum(:ammount)
+    @gained = {}
+    @burned = {}
+    @calories.each do |calorie|
+      if calorie[0][1] == 'Gained'
+        @gained[calorie[0][0]] = calorie[1]
+        @burned[calorie[0][0]] = 0
+      else
+        @gained[calorie[0][0]] = 0
+        @burned[calorie[0][0]] = calorie[1]
+      end
+    end
   end
 
   def show
