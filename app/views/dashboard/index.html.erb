@@ -1,6 +1,7 @@
 <% provide(:title, "Dashboard") %>
 <div class="text-center p-5 mb-4 bg-light rounded-3">
-  <h1><b>Dashboard</b></h1>
-  <h4 class="fw-normal mb-4">Add your calories!</h4>
+  <h1 class="mb-4"><b>Dashboard</b></h1>
+  <h4 class="fw-normal mb-4">You have: <b> <%= pluralize(current_user.calorie.count, "logs") %> </b></h4>
   <%= link_to "Add calorie register!", new_calory_path, class: "btn btn-lg btn-primary mt-3" %>
+  <br>
 </div>

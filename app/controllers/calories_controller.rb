@@ -8,7 +8,7 @@ class CaloriesController < ApplicationController
   end
 
   def chart
-    @calories = current_user.calorie.group(:created_at).group(:register_type).sum(:ammount)
+    @calories = current_user.calorie.group(:created_at).group(:register_type).order('created_at DESC').limit(30).sum(:ammount)
     @gained = {}
     @burned = {}
     @calories.each do |calorie|

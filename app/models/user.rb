@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :calorie
+  has_many :calorie, dependent: :destroy
 
   # Callbacks and Conditions
   before_save { email.downcase! }
