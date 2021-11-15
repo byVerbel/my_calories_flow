@@ -2,10 +2,6 @@
 <div class="p-5 mb-4 bg-light rounded-3">
   <div>
     <h1 class="mb-5">Logs chart</h1>
-    <%= line_chart [
-      {name: "Burned", data: @burned},
-      {name: "Gained", data: @gained}
-    ],
-    points: false %>
+    <%= line_chart @calories %>
   </div>
 </div>

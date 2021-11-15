@@ -4,8 +4,12 @@
     <%= f.number_field :ammount, class:"form-control mb-2", placeholder:"Number" %>
   </div>
   <%= f.number_field :user_id, id: :calorie_user_id, value: current_user.id, type: :hidden %>
+  <%= f.datetime_field :updated_at, value: col_datetime, type: :hidden %>
+  <% if params[:action] == 'new' %>
+    <%= f.datetime_field :created_at, value: col_datetime, type: :hidden %>
+  <% end %>
   <div class="field form-group">
-    <%= f.select(:register_type, [['Select register type: ', ''], 'Gained', 'Burned'], {}, { :class => 'form-select mb-2' }) %>
+    <%= f.select(:register_type, ['Gained', 'Burned'], {prompt: 'Select register type:'}, { :class => 'form-select mb-2' }) %>
   </div>
   <%= f.text_area :register_comment, class:"form-control mb-2", placeholder:"Comment", aria:"With textarea" %>
   <%= f.submit yield(:button_text), class: "btn btn-lg btn-primary my-4" %>

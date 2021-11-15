@@ -5,7 +5,7 @@ User.create!(firstname: 'Example User',
              password_confirmation: 'foobar')
 
 # Generate a bunch of additional users.
-49.times do |n|
+24.times do |n|
   firstname = Faker::Name.first_name
   lastname = Faker::Name.last_name
   email = "#{firstname}-#{n + 1}@railstutorial.org"
@@ -18,15 +18,22 @@ User.create!(firstname: 'Example User',
 end
 
 # Generate calories for a subset of users.
-users = User.order(:created_at).take(50)
-days_ago = 60
-60.times do
+users = User.order(:created_at).take(25)
+days_ago = 30
+days_ago.times do
   current_date = Date.today - days_ago
   users.each do |user|
-    comment = Faker::Lorem.sentence(word_count: 5)
-    cal = Faker::Number.between(from: 1, to: 300)
-    reg_type = %w[Gained Burned].sample
-    user.calorie.create!(ammount: cal, register_type: reg_type, register_comment: comment, created_at: current_date)
+    4.times do
+      cal = Faker::Number.between(from: 1, to: 200)
+      reg_type = %w[Gained Burned].sample
+      comment = if reg_type == 'Gained'
+                  'Comí de más'
+                else
+                  'Hice ejercicio'
+                end
+      user.calorie.create!(ammount: cal, register_type: reg_type, register_comment: comment, created_at: current_date,
+                           updated_at: current_date)
+    end
   end
   days_ago -= 1
 end
