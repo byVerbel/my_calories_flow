@@ -77,7 +77,7 @@ Rails.application.configure do
   # Add Rack::LiveReload to the bottom of the middleware stack with the default options:
   config.middleware.insert_after ActionDispatch::Static, Rack::LiveReload
 
-  config.action_mailer.default_url_options = { host: 'lfocalhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Mailcatcher
   config.action_mailer.delivery_method = :smtp
