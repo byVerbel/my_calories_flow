@@ -30,7 +30,9 @@ class CaloriesController < ApplicationController
   def chart
     # @calories = current_user.calorie.group(:register_type)
     # @calories = current_user.calorie.group(:register_type).group_by_day(:created_at).sum(:ammount)
-    @calories = current_user.calorie.group(:register_type).group_by_day(:created_at).order('created_at DESC').limit(30).sum(:ammount)
+    @calories = current_user.calorie.group(:register_type).group(date(:created_at)).order('date(created_at) DESC').limit(60).sum(:ammount)
+    # @calories = current_user.calorie.group_by { |c| c.created_at.to_date }
+    # @calories = @calories.limit(130)
     # date filter
     # if params[:days_back] && !params[:days_back].empty?
     #   @calories = @calories.days_back(params[:days_back])
