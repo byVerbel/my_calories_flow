@@ -10,25 +10,22 @@ module ApplicationHelper
   end
 
   def col_datetime
-    time = Time.now
+    time = Time.now.getutc
     time -= (60 * 60 * 5)
   end
 
   def comparison_datetime
-    time = Time.now
-    time -= (60 * 60 * 5)
+    time = col_datetime
     time.strftime('%Y-%m-%d %H:%M:%S UTC')
   end
 
   def col_date
-    time = Time.now
-    time -= (60 * 60 * 5)
+    time = col_datetime
     time.strftime('%Y-%m-%d')
   end
 
   def col_time
-    time = Time.now
-    time -= (60 * 60 * 5)
+    time = col_datetime
     time.strftime('%H:%M:%S')
   end
 end

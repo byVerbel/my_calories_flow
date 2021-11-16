@@ -1,0 +1,13 @@
+<%= form_with url: chart_path, method: :get do |form| %>
+  <div class="d-flex">
+    <div class="d-flex flex-column w-100 search me-2">
+      <div class="d-flex">
+        <%= form.number_field :days_back, class:"form-control mb-4", placeholder:"Days back for the graph" %>
+      </div>
+      <div class="d-flex">
+        <%= form.select(:aggrupation, ['Day', 'Week', 'Month', 'Year'], {prompt: 'Select an aggrupation type:'}, { :class => 'form-select mb-4' }) %>
+      </div>
+    </div>
+    <%= form.submit "Search", class: "btn btn-primary mb-4 align-self-center" %>
+  </div>
+<% end %>

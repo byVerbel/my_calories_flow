@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_12_192853) do
+ActiveRecord::Schema.define(version: 2021_11_16_004213) do
 
   create_table "calories", force: :cascade do |t|
     t.integer "ammount", null: false
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2021_11_12_192853) do
     t.datetime "remember_created_at"
     t.string "firstname", default: ""
     t.string "lastname", default: ""
-    t.date "birthday"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "confirmation_token"
