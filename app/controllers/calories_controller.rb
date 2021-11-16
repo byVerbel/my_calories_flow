@@ -28,25 +28,27 @@ class CaloriesController < ApplicationController
   end
 
   def chart
-    @calories = current_user.calorie.group(:register_type)
+    # @calories = current_user.calorie.group(:register_type)
+    # @calories = current_user.calorie.group(:register_type).group_by_day(:created_at).sum(:ammount)
+    @calories = current_user.calorie.group(:register_type).group_by_day(:created_at).order('created_at DESC').limit(30).sum(:ammount)
     # date filter
-    if params[:days_back] && !params[:days_back].empty?
-      @calories = @calories.days_back(params[:days_back])
-    else
-      days_ago = Date.today - 30
-      @calories = if params[:aggrupation] && !params[:aggrupation].empty?
-                    @calories.default_days(params[:aggrupation])
-                  else
-                    @calories.where('created_at >= ?', days_ago)
-                  end
-    end
-    # group_by selection
-    @calories = if params[:aggrupation] && !params[:aggrupation].empty?
-                  @calories.group_chart(params[:aggrupation])
-                else
-                  @calories.group_by_day(:created_at)
-                end
-    @calories = @calories.order('created_at DESC').sum(:ammount)
+    # if params[:days_back] && !params[:days_back].empty?
+    #   @calories = @calories.days_back(params[:days_back])
+    # else
+    #   days_ago = Date.today - 30
+    #   @calories = if params[:aggrupation] && !params[:aggrupation].empty?
+    #                 @calories.default_days(params[:aggrupation])
+    #               else
+    #                 @calories.where('created_at >= ?', days_ago)
+    #               end
+    # end
+    # # group_by selection
+    # @calories = if params[:aggrupation] && !params[:aggrupation].empty?
+    #               @calories.group_chart(params[:aggrupation])
+    #             else
+    #               @calories.group_by_day(:created_at)
+    #             end
+    # @calories = @calories.order('created_at DESC').sum(:ammount)
   end
 
   def show
