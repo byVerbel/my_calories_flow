@@ -5,7 +5,7 @@
     <% if @calories.empty? %>
       <% if @filtered_comment || @filtered_min || @filtered_max %>
         <h4 class="fw-normal mb-4">No logs for this query. Try a different one: </h4>
-        <%= render "query" %>
+        <%= render "index_query" %>
       <% else %>
         <h4 class="fw-normal mb-4">No logs yet. Write a log here: </h4>
         <%= link_to "Add calorie log!", new_calory_path, class: "btn btn-lg btn-primary mt-3" %>

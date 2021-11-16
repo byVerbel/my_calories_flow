@@ -4,12 +4,17 @@ class CaloriesController < ApplicationController
 
   def index
     @calories = current_user.calorie.order('created_at DESC')
-    @first_log = logs_limits[:first_log]
-    @last_log = logs_limits[:last_log]
+    # min - max dates for queries
+    if logs_limits
+      @first_log = logs_limits[:first_log]
+      @last_log = logs_limits[:last_log]
+    end
+    # comment query
     if params[:query] && !params[:query].empty?
       @calories = @calories.comment_search(params[:query])
       @filtered_comment = true
     end
+    # date query
     if params[:min_date] && !params[:min_date].empty?
       @calories = @calories.min_date_filter(params[:min_date])
       @filtered_min = true
@@ -18,11 +23,13 @@ class CaloriesController < ApplicationController
       @calories = @calories.max_date_filter(params[:max_date])
       @filtered_max = true
     end
+    # pagination
     @calories = Kaminari.paginate_array(@calories).page(params[:page]).per(20)
   end
 
   def chart
     @calories = current_user.calorie.group(:register_type)
+    # date filter
     if params[:days_back] && !params[:days_back].empty?
       @calories = @calories.days_back(params[:days_back])
     else
@@ -33,6 +40,7 @@ class CaloriesController < ApplicationController
                     @calories.where('created_at >= ?', days_ago)
                   end
     end
+    # group_by selection
     @calories = if params[:aggrupation] && !params[:aggrupation].empty?
                   @calories.group_chart(params[:aggrupation])
                 else
@@ -93,9 +101,13 @@ class CaloriesController < ApplicationController
   end
 
   def logs_limits
-    limits = {
-      first_log: current_user.calorie.first.created_at.strftime('%Y-%m-%d'),
-      last_log: current_user.calorie.last.created_at.strftime('%Y-%m-%d')
-    }
+    limits = {}
+    if current_user.calorie.first
+      limits = {
+        first_log: current_user.calorie.first.created_at.strftime('%Y-%m-%d'),
+        last_log: current_user.calorie.last.created_at.strftime('%Y-%m-%d')
+      }
+    end
+    limits
   end
 end
