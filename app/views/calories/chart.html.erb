@@ -1,7 +1,10 @@
 <% provide(:title, 'Chart') %>
 <div class="p-5 mb-4 bg-light rounded-3">
   <div>
-    <h1 class="mb-5">Logs chart</h1>
+    <div class="d-flex mb-4">
+      <%= gravatar_for current_user %>
+      <h1 class="align-self-center">Logs chart</h1>
+    </div>
     <!--<%= render "chart_query" %>-->
     <%= line_chart @calories %>
   </div>

@@ -1,24 +1,28 @@
 <% provide(:title, 'Calories logs') %>
 <div class="p-5 mb-4 bg-light rounded-3">
-  <div>
-    <h1 class="mb-4">Calories logs</h1>
-    <% if @calories.empty? %>
-      <% if @filtered_comment || @filtered_min || @filtered_max %>
-        <h4 class="fw-normal mb-4">No logs for this query. Try a different one: </h4>
-        <%= render "index_query" %>
-      <% else %>
-        <h4 class="fw-normal mb-4">No logs yet. Write a log here: </h4>
-        <%= link_to "Add calorie log!", new_calory_path, class: "btn btn-lg btn-primary mt-3" %>
-      <% end %>
-    <% else %>
+  <div class="d-flex mb-4">
+    <%= gravatar_for current_user %>
+    <h1 class="align-self-center">Calories logs</h1>
+  </div>
+  <% if @calories.empty? %>
+    <% if @filtered_comment || @filtered_min || @filtered_max %>
+      <h4 class="fw-normal mb-4">No logs for this query. Try a different one: </h4>
       <%= render "index_query" %>
-      <ul class="calories">
-        <%= paginate @calories, theme: 'twitter-bootstrap-4',
-                                window: 4 %>
-        <%= render @calories %>
-        <%= paginate @calories, theme: 'twitter-bootstrap-4',
-                                window: 4 %>
-      </ul>
+    <% else %>
+      <h4 class="fw-normal mb-4">No logs yet. Write a log here: </h4>
+      <%= link_to "Add calorie log!", new_calory_path, class: "btn btn-lg btn-primary mt-3" %>
     <% end %>
+  <% else %>
+    <%= render "index_query" %>
+    <ul class="calories">
+      <%= paginate @calories, theme: 'twitter-bootstrap-4',
+                                window: 4 %>
+      <%= render @calories %>
+      <%= paginate @calories, theme: 'twitter-bootstrap-4',
+                                window: 4 %>
+    </ul>
+  <% end %>
+  <div class="my-4">
+    <%= line_chart @chart %>
   </div>
 </div>

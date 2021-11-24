@@ -26,7 +26,8 @@
           <%= f.password_field :password_confirmation, class:"form-control mb-2", placeholder:"New password confirmation", autocomplete: "new-password" %>
         </div>
         <div class="field form-group">
-          <%= f.password_field :current_password, class:"form-control mb-2", placeholder:"Current password (to confirm the changes)", autocomplete: "current-password" %>
+          <%= f.label :current_password %> <i>(to confirm changes):</i><br />
+          <%= f.password_field :current_password, class:"form-control mb-2", placeholder:"Current password", autocomplete: "current-password" %>
         </div>
         <div class="actions">
           <%= f.submit "Update", class: "btn btn-lg btn-dark mb-4" %>
@@ -34,6 +35,10 @@
       <% end %>
     </div>
     <div class="col-lg-5 p-5">
+      <div class="mb-4">
+        <%= gravatar_for @user %>
+        <a href="https://gravatar.com/emails" target="_blank" rel="nonopener" class="link--scaffold">Change gravatar</a>
+      </div>
       <div class="card text-white bg-danger border-secondary p-1 text-center" style="max-width: auto;">
         <div class="card-header fw-bold">Cancel my account
         </div>

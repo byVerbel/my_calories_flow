@@ -9,6 +9,19 @@ module ApplicationHelper
     end
   end
 
+  # Gravatar
+  def gravatar_for(user, size: 80)
+    gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
+    gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
+    image_tag(gravatar_url, alt: user_full_name(user), class: 'gravatar')
+  end
+
+  # User functions
+  def user_full_name(user)
+    user.firstname + ' ' + user.lastname
+  end
+
+  # Time functions to convert to col
   def col_datetime
     time = Time.now.getutc
     time -= (60 * 60 * 5)
