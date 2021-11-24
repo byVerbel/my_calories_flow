@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_16_004213) do
+ActiveRecord::Schema.define(version: 2021_11_24_180854) do
 
   create_table "calories", force: :cascade do |t|
-    t.integer "ammount", null: false
+    t.integer "ammount", default: 0, null: false
     t.string "register_type", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

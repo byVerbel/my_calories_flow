@@ -1,15 +1,15 @@
 # Create a main sample user.
 User.create!(firstname: 'Example User',
-             email: 'byverbelyt@gmail.com',
+             email: 'byverbel@gmail.com',
              password: 'foobar',
              password_confirmation: 'foobar')
 
 user = User.first
-days_ago = 1000
+days_ago = 60
 days_ago.times do
   current_date = Date.today - days_ago
   4.times do
-    cal = Faker::Number.between(from: 1, to: 200)
+    cal = Faker::Number.between(from: 1, to: 300)
     reg_type = %w[Gained Burned].sample
     comment = if reg_type == 'Gained'
                 'Comí de más'
