@@ -33,8 +33,20 @@ class CaloriesController < ApplicationController
     # @calories = current_user.calorie.group(:register_type).group_by_day(:created_at).sum(:ammount)
     date = Date.today - 30.days
     @calories = current_user.calorie.where('created_at >= ?', date)
-                            .group(:register_type).group('date(created_at)')
+                            .group('date(created_at)').group(:register_type)
                             .order('date(created_at) DESC').sum(:ammount)
+
+    # @gained = {}
+    # @burned = {}
+    # @calories.each do |calorie|
+    #   if calorie[0][1] == 'Gained'
+    #     @gained[calorie[0][0]] = calorie[1]
+    #     @burned[calorie[0][0]] = 0
+    #   else
+    #     @gained[calorie[0][0]] = 0
+    #     @burned[calorie[0][0]] = calorie[1]
+    #   end
+    # end
     # @calories = current_user.calorie.group_by { |c| c.created_at.to_date }
     # @calories = @calories.limit(130)
     # date filter

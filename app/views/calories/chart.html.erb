@@ -6,6 +6,11 @@
       <h1 class="align-self-center">Logs chart</h1>
     </div>
     <!--<%= render "chart_query" %>-->
-    <%= line_chart @calories %>
+    <%= line_chart [
+      {name: "Burned", data: @burned},
+      {name: "Gained", data: @gained}
+    ],
+    points: false %>
   </div>
+  <!-- <%= @calories %> -->
 </div>
