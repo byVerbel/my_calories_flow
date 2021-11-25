@@ -1,6 +1,6 @@
 # Create a main sample user.
 User.create!(firstname: 'Example User',
-             email: 'byverbel@gmail.com',
+             email: 'byverbelyt@gmail.com',
              password: 'foobar',
              password_confirmation: 'foobar')
 
@@ -23,7 +23,9 @@ days_ago.times do
 end
 
 ### SEED FOR A LOT OF USERS
+
 # Generate a bunch of additional users.
+
 # users_number = 49
 # users_number.times do |n|
 #   firstname = Faker::Name.first_name
@@ -38,8 +40,8 @@ end
 # end
 
 # Generate calories for a subset of users.
-# users = User.order('created_at DESC').take(users_number)
 
+# users = User.order('created_at DESC').take(users_number)
 # days_ago = 120
 # days_ago.times do
 #   current_date = Date.today - days_ago

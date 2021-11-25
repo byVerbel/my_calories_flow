@@ -3,11 +3,11 @@ class CaloriesController < ApplicationController
   before_action :correct_user, only: %i[show edit update destroy]
 
   def index
-    @calories = current_user.calorie.order('created_at DESC')
+    @calories = current_user.calorie
     # min - max dates for queries
-    if logs_limits
-      @first_log = logs_limits[:first_log]
-      @last_log = logs_limits[:last_log]
+    if (limits = logs_limits(current_user))
+      @first_log = limits[:first_log]
+      @last_log = limits[:last_log]
     end
     # comment query
     if params[:query] && !params[:query].empty?
@@ -24,50 +24,31 @@ class CaloriesController < ApplicationController
       @filtered_max = true
     end
     # pagination
-    @chart = @calories.group(:register_type).group('date(created_at)').order('date(created_at) DESC').limit(120).sum(:ammount)
+    @chart = @calories.group(:register_type).group_by_day(:created_at).limit(120).sum(:ammount)
     @calories = Kaminari.paginate_array(@calories).page(params[:page]).per(10)
   end
 
   def chart
-    date = Date.today - 30.days
-
-    @calories = current_user.calorie.where('created_at >= ?',
-                                           date).group(:register_type).group_by_day(:created_at).sum(:ammount)
-
-    # date = Date.today - 30.days
-    # @calories = current_user.calorie.where('created_at >= ?', date)
-    #                         .group('date(created_at)').group(:register_type)
-    #                         .order('date(created_at) DESC').sum(:ammount)
-    # @gained = {}
-    # @burned = {}
-    # @calories.each do |calorie|
-    #   if calorie[0][1] == 'Gained'
-    #     @gained[calorie[0][0]] = calorie[1]
-    #     @burned[calorie[0][0]] = 0
-    #   else
-    #     @gained[calorie[0][0]] = 0
-    #     @burned[calorie[0][0]] = calorie[1]
-    #   end
-    # end
+    @calories = current_user.calorie.group(:register_type)
 
     # date filter
-    # if params[:days_back] && !params[:days_back].empty?
-    #   @calories = @calories.days_back(params[:days_back])
-    # else
-    #   days_ago = Date.today - 30
-    #   @calories = if params[:aggrupation] && !params[:aggrupation].empty?
-    #                 @calories.default_days(params[:aggrupation])
-    #               else
-    #                 @calories.where('created_at >= ?', days_ago)
-    #               end
-    # end
-    # # group_by selection
-    # @calories = if params[:aggrupation] && !params[:aggrupation].empty?
-    #               @calories.group_chart(params[:aggrupation])
-    #             else
-    #               @calories.group_by_day(:created_at)
-    #             end
-    # @calories = @calories.order('created_at DESC').sum(:ammount)
+    if params[:days_back] && !params[:days_back].empty?
+      @calories = @calories.days_back(params[:days_back])
+    else
+      days_ago = Date.today - 30.days
+      @calories = if params[:aggrupation] && !params[:aggrupation].empty?
+                    @calories.default_days(params[:aggrupation])
+                  else
+                    @calories.where('created_at >= ?', days_ago)
+                  end
+    end
+    # group_by selection
+    @calories = if params[:aggrupation] && !params[:aggrupation].empty?
+                  @calories.group_chart(params[:aggrupation])
+                else
+                  @calories.group_by_day(:created_at)
+                end
+    @calories = @calories.sum(:ammount)
   end
 
   def show
@@ -121,12 +102,12 @@ class CaloriesController < ApplicationController
     params.require(:calorie).permit(:ammount, :register_type, :register_comment, :updated_at, :created_at)
   end
 
-  def logs_limits
+  def logs_limits(user)
     limits = {}
-    if current_user.calorie.first
+    if user.calorie.first
       limits = {
-        first_log: current_user.calorie.first.created_at.strftime('%Y-%m-%d'),
-        last_log: current_user.calorie.last.created_at.strftime('%Y-%m-%d')
+        first_log: user.calorie.first.created_at.strftime('%Y-%m-%d'),
+        last_log: user.calorie.last.created_at.strftime('%Y-%m-%d')
       }
     end
     limits
