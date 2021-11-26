@@ -2,10 +2,21 @@
 <div class="p-5 mb-4 bg-light rounded-3">
   <div>
     <div class="d-flex mb-4">
-      <%= gravatar_for current_user %>
-      <h1 class="align-self-center">Logs chart</h1>
+      <div class="me-3"><%= gravatar_for @user %></div>
+      <% if user_signed_in? %>
+        <h1 class="align-self-center">Logs chart</h1>
+      <% else %>
+        <h1 class="align-self-center"><%= @user.firstname + ' ' + @user.lastname %>: Last 30 days chart</h1>
+      <% end %>
     </div>
-    <%= render "chart_query" %>
-    <%= line_chart @calories, points: false %>
+    <% if user_signed_in? %>
+      <%= render "chart_query" %>
+    <% end %>
+    <div class="mb-5">
+      <%= line_chart @calories, points: false %>
+    </div>
+    <% if user_signed_in? %>
+      <%= render "share_chart" %>
+    <% end %>
   </div>
 </div>

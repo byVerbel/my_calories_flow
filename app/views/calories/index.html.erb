@@ -1,7 +1,7 @@
 <% provide(:title, 'Calories logs') %>
 <div class="p-5 mb-4 bg-light rounded-3">
   <div class="d-flex mb-4">
-    <%= gravatar_for current_user %>
+    <div class="me-3"><%= gravatar_for current_user %></div>
     <h1 class="align-self-center">Calories logs</h1>
   </div>
   <% if @calories.empty? %>
@@ -16,10 +16,10 @@
     <%= render "index_query" %>
     <ul class="calories">
       <%= paginate @calories, theme: 'twitter-bootstrap-4',
-                                window: 4 %>
+                                window: 3 %>
       <%= render @calories %>
       <%= paginate @calories, theme: 'twitter-bootstrap-4',
-                                window: 4 %>
+                                window: 3 %>
     </ul>
   <% end %>
   <div class="my-4">

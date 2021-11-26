@@ -1,5 +1,5 @@
 class CaloriesController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show chart]
   before_action :correct_user, only: %i[show edit update destroy]
 
   def index
@@ -25,11 +25,21 @@ class CaloriesController < ApplicationController
     end
     # pagination
     @chart = @calories.group(:register_type).group_by_day(:created_at).limit(120).sum(:ammount)
-    @calories = Kaminari.paginate_array(@calories).page(params[:page]).per(10)
+    @calories = Kaminari.paginate_array(@calories.order('created_at DESC')).page(params[:page]).per(10)
   end
 
   def chart
-    @calories = current_user.calorie.group(:register_type)
+    @user = if (user_id = params[:friend_user_id])
+              if (user = User.find(user_id))
+                user
+              else
+                current_user
+              end
+            else
+              current_user
+            end
+
+    @calories = @user.calorie.group(:register_type)
 
     # date filter
     if params[:days_back] && !params[:days_back].empty?
@@ -49,6 +59,13 @@ class CaloriesController < ApplicationController
                   @calories.group_by_day(:created_at)
                 end
     @calories = @calories.sum(:ammount)
+
+    # Sharing the chart
+    if params[:friend_email] && !params[:friend_email].empty? && valid_email?(params[:friend_email])
+      friend = params[:friend_email]
+      UserMailer.chart_graph(@user, friend).deliver_now
+      flash.now[:info] = "Chart shared with #{friend}"
+    end
   end
 
   def show
@@ -111,5 +128,13 @@ class CaloriesController < ApplicationController
       }
     end
     limits
+  end
+
+  def valid_email?(email)
+    if email.match(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
+      true
+    else
+      false
+    end
   end
 end

@@ -8,12 +8,8 @@
           <%= link_to calorie.ammount, calorie, class: 'text-success' %>
         <% end %>
       </div>
-      <div class="col-lg-5 text-center">
+      <div class="col-lg-8 text-center">
         <i><%= calorie.register_comment %></i>
-      </div>
-      <div class="col-lg-3 text-center">
-        <% user = User.find(calorie.user_id) %>
-        by: @<%= user.email.match(/(.+)@.+/)[1] %>
       </div>
       <div class="col-lg-3 text-center">
         <i>
