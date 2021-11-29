@@ -5,7 +5,6 @@ class User < ApplicationRecord
 
   # Callbacks and Conditions
   before_save :downcase_email
-  # before_create :create_chart_digest
 
   validates :firstname, length: { maximum: 50 }
   validates :lastname, length: { maximum: 50 }
@@ -35,10 +34,21 @@ class User < ApplicationRecord
     end
  end
 
+  # Returns true if the given token matches the digest.
+  def valid_token?(chart_token)
+    return false if chart_digest.nil?
+
+    BCrypt::Password.new(chart_digest).is_password?(chart_token)
+  end
+
   # Creates and assigns the chart token.
   def create_chart_token
     self.chart_token = User.new_token
-    # self.chart_digest = User.digest(chart_token)
+    update_attribute(:chart_digest, User.digest(chart_token))
+  end
+
+  def share_chart(friend)
+    UserMailer.chart_graph(self, friend).deliver_now
   end
 
   private

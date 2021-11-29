@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+gem 'bcrypt', '~> 3.1', '>= 3.1.16'
 gem 'bootsnap', '1.7.2', require: false
 gem 'bootstrap4-kaminari-views', '~> 1.0', '>= 1.0.1'
 gem 'chartkick', '~> 4.1', '>= 4.1.2'

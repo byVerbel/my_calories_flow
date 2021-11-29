@@ -29,15 +29,7 @@ class CaloriesController < ApplicationController
   end
 
   def chart
-    @user = if (user_id = params[:friend_user_id])
-              if (user = User.find(user_id))
-                user
-              else
-                current_user
-              end
-            else
-              current_user
-            end
+    @user = current_user
 
     @calories = @user.calorie.group(:register_type)
 
@@ -63,7 +55,7 @@ class CaloriesController < ApplicationController
     # Sharing the chart
     if params[:friend_email] && !params[:friend_email].empty? && valid_email?(params[:friend_email])
       friend = params[:friend_email]
-      UserMailer.chart_graph(@user, friend).deliver_now
+      @user.share_chart(friend)
       flash.now[:info] = "Chart shared with #{friend}"
     end
   end

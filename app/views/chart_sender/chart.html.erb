@@ -3,12 +3,9 @@
   <div>
     <div class="d-flex mb-4">
       <div class="me-3"><%= gravatar_for @user %></div>
-      <h1 class="align-self-center">Logs chart</h1>
+      <h1 class="align-self-center"><%= @user.firstname + ' ' + @user.lastname %>: Last 30 days chart</h1>
     </div>
     <%= render "chart_query" %>
-    <div class="mb-4">
-      <%= line_chart @calories, points: false %>
-    </div>
-    <%= render "share_chart" %>
+    <%= line_chart @calories, points: false %>
   </div>
 </div>

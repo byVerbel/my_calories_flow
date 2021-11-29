@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   root to: 'static_pages#contact'
   get '/contact', to: 'static_pages#contact'
   get '/chart', to: 'calories#chart'
-  resources :chart_sender, only: [:edit]
+  get '/share_chart', to: 'chart_sender#chart'
 end
