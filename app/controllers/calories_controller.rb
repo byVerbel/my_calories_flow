@@ -24,7 +24,7 @@ class CaloriesController < ApplicationController
       @filtered_max = true
     end
     # pagination
-    @chart = @calories.group(:register_type).group_by_day(:created_at).limit(120).sum(:ammount)
+    @chart = @calories.group(:register_type).group_by_day(:created_at).sum(:ammount)
     @calories = Kaminari.paginate_array(@calories.order('created_at DESC')).page(params[:page]).per(10)
   end
 
