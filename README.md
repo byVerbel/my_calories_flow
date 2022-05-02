@@ -56,3 +56,5 @@ $ heroku run rails db:seed
 ```
 
 Visiting the URL returned by the original `heroku create` should now show you the sample app running in production. As with the local version, you can then register a new user or log in as you like.
+
+## Testing Git
